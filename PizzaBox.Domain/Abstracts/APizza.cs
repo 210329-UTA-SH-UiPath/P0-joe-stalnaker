@@ -8,6 +8,7 @@ namespace PizzaBox.Domain.Abstracts
   /// </summary>
   public abstract class APizza
   {
+    public string Type { get; set; }
     public Crust Crust { get; set; }
     public Size Size { get; set; }
     public List<Topping> Toppings { get; set; }
@@ -19,6 +20,7 @@ namespace PizzaBox.Domain.Abstracts
 
     private void Factory()
     {
+      Type = "Custom";
       Toppings = new List<Topping>();
 
       AddCrust();
@@ -37,5 +39,10 @@ namespace PizzaBox.Domain.Abstracts
     }
 
     public abstract void AddToppings();
+
+    public override string ToString()
+    {
+      return $"{Type}";
+    }
   }
 }

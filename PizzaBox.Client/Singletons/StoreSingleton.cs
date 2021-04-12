@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
@@ -14,8 +15,10 @@ namespace PizzaBox.Client.Singletons
   {
     private static StoreSingleton _instance;
     private static readonly FileRepository _fileRepository = new FileRepository();
-    private const string _path = @"store.xml";
+    private const string _storePath = @"store.xml";
+    private const string _orderPath = @"order.xml";
     public List<AStore> Stores { get; set; }
+    public List<Order> Orders { get; set; }
     public static StoreSingleton Instance
     {
       get
@@ -34,7 +37,29 @@ namespace PizzaBox.Client.Singletons
     /// </summary>
     private StoreSingleton()
     {
-      Stores = _fileRepository.ReadFromFile<AStore>(_path);
+      Stores = _fileRepository.ReadFromFile<AStore>(_storePath);
+      Orders = new List<Order>();
+      //Orders = _fileRepository.ReadFromFile<Order>(_orderPath);
+    }
+    public bool Save()
+    {
+      return (
+        _fileRepository.WriteToFile<AStore>(_storePath, Stores)
+        &&
+      _fileRepository.WriteToFile<Order>(_orderPath, Orders));
+    }
+    public void AddOrder(Order order)
+    {
+      ShowOrders();
+      Orders.Add(order);
+      ShowOrders();
+    }
+    public void ShowOrders()
+    {
+      foreach (Order order in Orders)
+      {
+        Console.WriteLine(order);
+      }
     }
   }
 }

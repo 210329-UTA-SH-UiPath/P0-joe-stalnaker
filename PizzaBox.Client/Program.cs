@@ -36,8 +36,9 @@ namespace PizzaBox.Client
       order.Customer = new Customer();
       order.Store = SelectStore();
       order.Pizza = SelectPizza();
+      _storeSingleton.AddOrder(order);
 
-      order.Save();
+      Console.WriteLine(_storeSingleton.Save());
     }
 
     /// <summary>

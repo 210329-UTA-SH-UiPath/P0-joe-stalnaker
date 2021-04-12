@@ -8,15 +8,15 @@ namespace PizzaBox.Storing.Repositories
 {
   public class FileRepository
   {
-    public bool WriteToFile(List<AStore> stores)
+    public bool WriteToFile<T>(string path, List<T> list)
     {
       try
       {
-        var path = @"store.xml";
         var writer = new StreamWriter(path);
-        var xml = new XmlSerializer(typeof(List<AStore>));
+        var xml = new XmlSerializer(typeof(List<T>));
 
-        xml.Serialize(writer, stores);
+        xml.Serialize(writer, list);
+        writer.Close();
 
         return true;
       }
@@ -24,8 +24,9 @@ namespace PizzaBox.Storing.Repositories
       // {
       //   throw new Exception("you have wrong file", e);
       // }
-      catch
+      catch (Exception e)
       {
+        Console.WriteLine(e);
         return false;
       }
     }
@@ -34,8 +35,10 @@ namespace PizzaBox.Storing.Repositories
     {
       var reader = new StreamReader(path);
       var xml = new XmlSerializer(typeof(List<T>)); // POCO = plain old csharp object
+      var list = xml.Deserialize(reader) as List<T>;
+      reader.Close();
 
-      return xml.Deserialize(reader) as List<T>; // if error => null
+      return list; // if error => null
       // return (List<AStore>) xml.Deserialize(reader); // if error => exception
     }
   }
