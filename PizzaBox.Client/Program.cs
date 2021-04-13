@@ -13,6 +13,7 @@ namespace PizzaBox.Client
   {
     private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
     private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
+    private static readonly OrderSingleton _orderSingleton = OrderSingleton.Instance;
 
     /// <summary>
     /// 
@@ -36,9 +37,11 @@ namespace PizzaBox.Client
       order.Customer = new Customer();
       order.Store = SelectStore();
       order.Pizza = SelectPizza();
-      _storeSingleton.AddOrder(order);
+      _orderSingleton.AddOrder(order);
+      Console.WriteLine($"Orders:");
+      _orderSingleton.ShowOrders();
 
-      Console.WriteLine(_storeSingleton.Save());
+      _orderSingleton.Save();
     }
 
     /// <summary>
