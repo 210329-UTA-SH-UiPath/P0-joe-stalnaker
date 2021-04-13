@@ -27,21 +27,50 @@ namespace PizzaBox.Client
     /// <summary>
     /// 
     /// </summary>
+    // private static void Run()
+    // {
+    //   var order = new Order();
+
+    //   Console.WriteLine("Welcome to PizzaBox");
+    //   DisplayStoreMenu();
+
+    //   order.Customer = new Customer();
+    //   order.Store = SelectStore();
+    //   order.Pizza = SelectPizza();
+    //   _orderSingleton.AddOrder(order);
+    //   Console.WriteLine($"Orders:");
+    //   _orderSingleton.ShowOrders();
+
+    //   _orderSingleton.Save();
+    // }
     private static void Run()
     {
-      var order = new Order();
+      var running = true;
+      while (running)
+      {
+        var command = DisplayMainMenu();
+        switch (command)
+        {
+          case 1:
+            DisplayStoreList();
+            break;
+          case 2:
+            DisplayOrders();
+            break;
+          case 3:
+            CreateOrder();
+            break;
+          case 4:
+            running = false;
+            break;
+        }
+      }
+    }
 
+    private static void DisplayMainMenu()
+    {
       Console.WriteLine("Welcome to PizzaBox");
-      DisplayStoreMenu();
-
-      order.Customer = new Customer();
-      order.Store = SelectStore();
-      order.Pizza = SelectPizza();
-      _orderSingleton.AddOrder(order);
-      Console.WriteLine($"Orders:");
-      _orderSingleton.ShowOrders();
-
-      _orderSingleton.Save();
+      Console.WriteLine(mainMenu);
     }
 
     /// <summary>
