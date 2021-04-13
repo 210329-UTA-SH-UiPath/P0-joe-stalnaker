@@ -21,7 +21,7 @@ namespace PizzaBox.Testing.Tests
       var actual = sut.Crust;
 
       // assert
-      Assert.Null(actual);
+      Assert.Equal("Cauliflower", actual.Type);
     }
   }
 }

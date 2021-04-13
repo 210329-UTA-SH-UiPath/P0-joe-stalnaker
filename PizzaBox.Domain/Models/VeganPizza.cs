@@ -13,7 +13,7 @@ namespace PizzaBox.Domain.Models
     }
     public override void AddCrust()
     {
-      Crust = null;
+      Crust = new Crust("Cauliflower");
     }
 
     public override void AddSize()

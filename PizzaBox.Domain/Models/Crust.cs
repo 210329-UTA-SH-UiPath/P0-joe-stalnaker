@@ -7,6 +7,15 @@ namespace PizzaBox.Domain.Models
   /// </summary>
   public class Crust : AComponent
   {
+    public string Type { set; get; }
+    public Crust()
+    {
+      Type = "";
+    }
+    public Crust(string type)
+    {
+      Type = type;
+    }
 
   }
 }
