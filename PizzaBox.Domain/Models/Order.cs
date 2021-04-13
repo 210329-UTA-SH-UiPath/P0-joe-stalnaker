@@ -12,16 +12,14 @@ namespace PizzaBox.Domain.Models
   [XmlInclude(typeof(VeganPizza))]
   public class Order
   {
-    public AStore Store { get; set; }
-    public Customer Customer { get; set; }
-    public APizza Pizza { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void Save()
+    private AStore Store { get; set; }
+    private Customer Customer { get; set; }
+    private APizza Pizza { get; set; }
+    public Order(Customer customer, AStore store, APizza pizza)
     {
-
+      Customer = customer;
+      Store = store;
+      Pizza = pizza;
     }
     public override string ToString()
     {

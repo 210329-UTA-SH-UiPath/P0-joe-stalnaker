@@ -7,9 +7,9 @@ namespace PizzaBox.Domain.Models
   {
     public string Name { get; set; }
 
-    public Customer()
+    public Customer(string name)
     {
-      Name = "Customer";
+      Name = name;
     }
     public override string ToString()
     {

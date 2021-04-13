@@ -54,13 +54,13 @@ namespace PizzaBox.Client
         switch (command)
         {
           case 1:
-            //DisplayStoreList();
+            DisplayStores();
             break;
           case 2:
-            //DisplayOrders();
+            DisplayOrders();
             break;
           case 3:
-            //CreateOrder();
+            CreateOrder();
             break;
           case 4:
             running = false;
@@ -80,15 +80,18 @@ namespace PizzaBox.Client
     /// <summary>
     /// 
     /// </summary>
-    private static void DisplayOrder(APizza pizza)
+    private static void DisplayOrders()
     {
-      Console.WriteLine($"Your order is: {pizza}");
+      foreach (Order order in _orderSingleton.Orders)
+      {
+        Console.WriteLine(order);
+      }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    private static void DisplayPizzaMenu()
+    private static void DisplayPizzas()
     {
       var index = 0;
 
@@ -101,7 +104,7 @@ namespace PizzaBox.Client
     /// <summary>
     /// 
     /// </summary>
-    private static void DisplayStoreMenu()
+    private static void DisplayStores()
     {
       var index = 0;
 
@@ -130,9 +133,6 @@ namespace PizzaBox.Client
     {
       var input = int.Parse(Console.ReadLine());
       var pizza = _pizzaSingleton.Pizzas[input - 1];
-
-      DisplayOrder(pizza);
-
       return pizza;
     }
 
@@ -143,10 +143,27 @@ namespace PizzaBox.Client
     private static AStore SelectStore()
     {
       var input = int.Parse(Console.ReadLine()); // be careful (think execpetion/error handling)
-
-      DisplayPizzaMenu();
-
       return _storeSingleton.Stores[input - 1];
+    }
+    private static void CreateOrder()
+    {
+      DisplayCustomerPrompt();
+      var customer = new Customer(Console.ReadLine());
+      DisplayStores();
+      DisplayListPrompt();
+      var store = SelectStore();
+      DisplayPizzas();
+      DisplayListPrompt();
+      var pizza = SelectPizza();
+      _orderSingleton.Orders.Add(new Order(customer, store, pizza));
+    }
+    private static void DisplayCustomerPrompt()
+    {
+      Console.Write(_stringSingleton.Strings[2]);
+    }
+    private static void DisplayListPrompt()
+    {
+      Console.Write(_stringSingleton.Strings[3]);
     }
   }
 }

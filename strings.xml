@@ -6,4 +6,6 @@
   3. Start New Order
   4. Quit</string>
   <string>R. Return to Main Menu</string>
+  <string>Enter Customer Name: </string>
+  <string>Select From List: </string>
 </ArrayOfString>
