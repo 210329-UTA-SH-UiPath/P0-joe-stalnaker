@@ -14,6 +14,7 @@ namespace PizzaBox.Client
     private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
     private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
     private static readonly OrderSingleton _orderSingleton = OrderSingleton.Instance;
+    private static readonly StringSingleton _stringSingleton = StringSingleton.Instance;
 
     /// <summary>
     /// 
@@ -48,17 +49,18 @@ namespace PizzaBox.Client
       var running = true;
       while (running)
       {
-        var command = DisplayMainMenu();
+        DisplayMainMenu();
+        var command = SelectMainMenuOption();
         switch (command)
         {
           case 1:
-            DisplayStoreList();
+            //DisplayStoreList();
             break;
           case 2:
-            DisplayOrders();
+            //DisplayOrders();
             break;
           case 3:
-            CreateOrder();
+            //CreateOrder();
             break;
           case 4:
             running = false;
@@ -67,10 +69,12 @@ namespace PizzaBox.Client
       }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private static void DisplayMainMenu()
     {
-      Console.WriteLine("Welcome to PizzaBox");
-      Console.WriteLine(mainMenu);
+      Console.WriteLine(_stringSingleton.Strings[0]);
     }
 
     /// <summary>
@@ -105,6 +109,17 @@ namespace PizzaBox.Client
       {
         Console.WriteLine($"{++index} - {item}");
       }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private static int SelectMainMenuOption()
+    {
+      var input = int.Parse(Console.ReadLine()); // be careful (think execpetion/error handling)
+
+      return input;
     }
 
     /// <summary>

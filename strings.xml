@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <string>Welcome To PizzaBox!
+  1. List Stores
+  2. List Previous Orders
+  3. Start New Order
+  4. Quit</string>
+  <string>R. Return to Main Menu</string>
+</ArrayOfString>

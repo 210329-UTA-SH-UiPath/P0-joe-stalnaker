@@ -33,6 +33,14 @@ namespace PizzaBox.Client.Singletons
     /// </summary>
     private StringSingleton()
     {
+      //     Strings = new List<string>();
+      //     Strings.Add(@"Welcome To PizzaBox!
+      // 1. List Stores
+      // 2. List Previous Orders
+      // 3. Start New Order
+      // 4. Quit");
+      //     Strings.Add(@"R. Return to Main Menu");
+      //     Save();
       Strings = _fileRepository.ReadFromFile<string>(_path);
     }
     public bool Save()
