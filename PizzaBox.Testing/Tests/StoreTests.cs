@@ -21,7 +21,7 @@ namespace PizzaBox.Testing.Tests
       var actual = sut.Name;
 
       // assert
-      Assert.True(actual == "ChicagoStore");
+      Assert.True(actual == "Chicago Store");
     }
   }
 }
