@@ -1,5 +1,7 @@
 using System.Xml.Serialization;
 using PizzaBox.Domain.Models;
+using System.Collections.Generic;
+using System;
 
 namespace PizzaBox.Domain.Abstracts
 {
@@ -11,15 +13,15 @@ namespace PizzaBox.Domain.Abstracts
   public class AStore
   {
     public string Name { get; set; }
+    public List<Order> Orders { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     protected AStore()
     {
-
+      Orders = new List<Order>();
     }
-
     /// <summary>
     /// 
     /// </summary>
@@ -27,6 +29,15 @@ namespace PizzaBox.Domain.Abstracts
     public override string ToString()
     {
       return $"{Name}";
+    }
+    public Dictionary<DateTime, int> GetLedger(int timeFrame)
+    {
+      //1. Weekly
+      //2. Monthly
+      //weeks end on Sunday and start on Monday
+      //ledger consits of the end date for the month or year and the total sales
+      Dictionary<DateTime, int> ledger = new Dictionary<DateTime, int>();
+      return ledger;
     }
   }
 }

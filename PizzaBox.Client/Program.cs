@@ -15,95 +15,53 @@ namespace PizzaBox.Client
     private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
     private static readonly OrderSingleton _orderSingleton = OrderSingleton.Instance;
     private static readonly StringSingleton _stringSingleton = StringSingleton.Instance;
+    private static readonly CustomerSingleton _customerSingleton = CustomerSingleton.Instance;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     /// <param name="args"></param>
     private static void Main(string[] args)
     {
       Run();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    // private static void Run()
-    // {
-    //   var order = new Order();
-
-    //   Console.WriteLine("Welcome to PizzaBox");
-    //   DisplayStoreMenu();
-
-    //   order.Customer = new Customer();
-    //   order.Store = SelectStore();
-    //   order.Pizza = SelectPizza();
-    //   _orderSingleton.AddOrder(order);
-    //   Console.WriteLine($"Orders:");
-    //   _orderSingleton.ShowOrders();
-
-    //   _orderSingleton.Save();
-    // }
+    /// <summary></summary>
     private static void Run()
     {
       var running = true;
       while (running)
       {
         DisplayMainMenu();
-        var command = SelectMainMenuOption();
+        var command = SelectMenuOption();
         switch (command)
         {
           case 1:
             DisplayStores();
             break;
           case 2:
-            DisplayOrders();
+            DisplaySalesByStore();
             break;
           case 3:
-            CreateOrder();
+            DisplayOrdersByStore();
             break;
           case 4:
+            DisplayOrdersByCustomer();
+            break;
+          case 5:
+            CreateOrder();
+            break;
+          case 6:
             running = false;
             break;
         }
       }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     private static void DisplayMainMenu()
     {
       Console.WriteLine(_stringSingleton.Strings[0]);
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private static void DisplayOrders()
-    {
-      foreach (Order order in _orderSingleton.Orders)
-      {
-        Console.WriteLine(order);
-      }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private static void DisplayPizzas()
-    {
-      var index = 0;
-
-      foreach (var item in _pizzaSingleton.Pizzas)
-      {
-        Console.WriteLine($"{++index} - {item}");
-      }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     private static void DisplayStores()
     {
       var index = 0;
@@ -113,21 +71,80 @@ namespace PizzaBox.Client
         Console.WriteLine($"{++index} - {item}");
       }
     }
+    /// <summary></summary>
+    private static void DisplaySalesByStore()
+    {
+      DisplayStores();
+      DisplayListPrompt();
+      var store = SelectStore();
+      DisplaySalesMenu();
+      DisplayLedger(store.GetLedger(SelectMenuOption()));
+    }
+    /// <summary></summary>
+    public static void DisplayLedger(Dictionary<DateTime, int> ledger)
+    {
+      foreach (KeyValuePair<DateTime, int> entry in ledger)
+      {
+        Console.WriteLine($"{0}: {1}", entry.Key, entry.Value);
+      }
+    }
+    /// <summary></summary>
+    private static void DisplayOrdersByStore()
+    {
+      DisplayStores();
+      DisplayListPrompt();
+      var store = SelectStore();
+      DisplayOrders(store.Orders);
+    }
+    /// <summary></summary>
+    private static void DisplayOrdersByCustomer()
+    {
+      DisplayCustomers();
+      DisplayListPrompt();
+      var customer = SelectCustomer();
+      DisplayOrders(customer.Orders);
+    }
+    /// <summary></summary>
+    public static void DisplayCustomers()
+    {
+      foreach (Customer customer in _customerSingleton.Customers)
+    }
+    /// <summary></summary>
+    private static void DisplayOrders(List<Order> orders)
+    {
+      foreach (Order order in orders)
+      {
+        Console.WriteLine(order);
+      }
+    }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    private static int SelectMainMenuOption()
+    /// <summary></summary>
+    private static void DisplayPizzas()
+    {
+      var index = 0;
+
+      foreach (var item in _pizzaSingleton.Pizzas)
+      {
+        Console.WriteLine($"{++index} - {item}");
+      }
+    }
+    /// <summary></summary>
+    /// <returns>int</returns>
+    private static int SelectMenuOption()
     {
       var input = int.Parse(Console.ReadLine()); // be careful (think execpetion/error handling)
 
       return input;
     }
+    /// <summary></summary>
+    /// <returns>int</returns>
+    private static int SelectTime()
+    {
+      var input = SelectMenuOption(); // be careful (think execpetion/error handling)
 
-    /// <summary>
-    /// 
-    /// </summary>
+      return input;
+    }
+    /// <summary></summary>
     /// <returns></returns>
     private static APizza SelectPizza()
     {
@@ -135,15 +152,20 @@ namespace PizzaBox.Client
       var pizza = _pizzaSingleton.Pizzas[input - 1];
       return pizza;
     }
+    /// <summary></summary>
+    /// <returns>Customer</returns>
+    private static Customer SelectCustomer()
+    {
+      var input = int.Parse(Console.ReadLine());
+      var customer = _customerSingleton.Customers[input - 1];
+      return customer;
+    }
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     /// <returns></returns>
     private static AStore SelectStore()
     {
-      var input = int.Parse(Console.ReadLine()); // be careful (think execpetion/error handling)
-      return _storeSingleton.Stores[input - 1];
+      return _storeSingleton.Stores[SelectMenuOption() - 1];
     }
     private static void CreateOrder()
     {
@@ -164,6 +186,15 @@ namespace PizzaBox.Client
     private static void DisplayListPrompt()
     {
       Console.Write(_stringSingleton.Strings[3]);
+    }
+    private static void DisplaySalesMenu()
+    {
+      Console.Write(_stringSingleton.Strings[4]);
+      DisplayListPrompt();
+    }
+    private static void DisplayTimePrompt()
+    {
+      Console.WriteLine(_stringSingleton.Strings[5]);
     }
   }
 }

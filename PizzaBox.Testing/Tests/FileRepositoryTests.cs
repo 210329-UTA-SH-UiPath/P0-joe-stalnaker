@@ -26,6 +26,5 @@ namespace PizzaBox.Testing.Tests
       Assert.False(list == actual);
       Assert.Equal(list, actual);
     }
-
   }
 }
