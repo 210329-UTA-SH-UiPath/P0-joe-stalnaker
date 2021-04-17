@@ -8,9 +8,7 @@ using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client.Singletons
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public class CustomerSingleton
   {
     private static CustomerSingleton _instance;
@@ -41,11 +39,18 @@ namespace PizzaBox.Client.Singletons
     {
       return _fileRepository.WriteToFile<Customer>(_path, Customers);
     }
-    public void AddCustomer(Customer customer)
+    public void AddCustomer(Customer newCustomer)
     {
-      ShowCustomers();
-      Customers.Add(customer);
-      ShowCustomers();
+      Boolean found = false;
+      foreach (Customer customer in Customers)
+      {
+        if (newCustomer.ID == customer.ID)
+        {
+          found = true;
+          break;
+        }
+      }
+      if (!found) Customers.Add(newCustomer);
     }
     public void ShowCustomers()
     {

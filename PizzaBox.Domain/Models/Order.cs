@@ -11,7 +11,7 @@ namespace PizzaBox.Domain.Models
   [XmlInclude(typeof(APizza))]
   [XmlInclude(typeof(AStore))]
   [XmlInclude(typeof(MeatPizza))]
-  [XmlInclude(typeof(VeganPizza))]
+  [XmlInclude(typeof(HawiianPizza))]
   public class Order
   {
     public AStore Store { get; set; }

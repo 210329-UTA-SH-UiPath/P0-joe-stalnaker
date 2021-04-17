@@ -1,29 +1,31 @@
+using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 
 namespace PizzaBox.Domain.Models
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public class VeganPizza : APizza
   {
-    public VeganPizza()
+    public VeganPizza() : base()
     {
-      Type = "Vegan Pizza";
-    }
-    public override void AddCrust()
-    {
-      Crust = new Crust("Cauliflower");
-    }
+      Name = "Vegan Pizza";
+      Crust = new Crust("Cauliflower", 3.00M);
+      Size = new Size();
+      Toppings = new List<Topping>();
+      Toppings.Add(new Topping("Cheese", 1.00M));
+      Toppings.Add(new Topping("Olives", 1.00M));
+      Toppings.Add(new Topping("Pineapple", 1.00M));
 
-    public override void AddSize()
-    {
-      Size = null;
     }
-
-    public override void AddToppings()
+    public override decimal Price()
     {
-      Toppings.AddRange(new Topping[] { new Topping(), new Topping() });
+      decimal price = Crust.Price;
+      price += Size.Price;
+      foreach (Topping topping in Toppings)
+      {
+        price += topping.Price;
+      }
+      return price;
     }
   }
 }

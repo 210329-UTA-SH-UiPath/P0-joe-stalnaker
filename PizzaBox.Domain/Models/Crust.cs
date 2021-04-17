@@ -2,20 +2,19 @@ using PizzaBox.Domain.Abstracts;
 
 namespace PizzaBox.Domain.Models
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public class Crust : AComponent
   {
-    public string Type { set; get; }
-    public Crust()
+    /*
+    Regular     $1.00
+    Stuffed     $2.00
+    Cauliflower $3.00
+    */
+    public Crust() : base()
     {
-      Type = "";
+      Name = "Regular";
+      Price = 1.00M;
     }
-    public Crust(string type)
-    {
-      Type = type;
-    }
-
+    public Crust(string name, decimal price) : base(name, price) { }
   }
 }

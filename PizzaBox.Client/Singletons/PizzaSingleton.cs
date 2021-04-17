@@ -33,7 +33,9 @@ namespace PizzaBox.Client.Singletons
       Pizzas = new List<APizza>()
       {
         new MeatPizza(),
-        new VeganPizza()
+        new VeganPizza(),
+        new HawiianPizza(),
+        new SupremePizza()
       };
     }
   }

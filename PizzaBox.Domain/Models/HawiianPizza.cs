@@ -4,16 +4,16 @@ using PizzaBox.Domain.Abstracts;
 namespace PizzaBox.Domain.Models
 {
   /// <summary></summary>
-  public class MeatPizza : APizza
+  public class HawiianPizza : APizza
   {
-    public MeatPizza() : base()
+    public HawiianPizza() : base()
     {
-      Name = "Meat Pizza";
+      Name = "Hawiian Pizza";
       Crust = new Crust();
       Size = new Size();
       Toppings = new List<Topping>();
       Toppings.Add(new Topping("Cheese", 1.00M));
-      Toppings.Add(new Topping("Pepperoni", 1.00M));
+      Toppings.Add(new Topping("Pineapple", 1.00M));
       Toppings.Add(new Topping("Ham", 1.00M));
     }
     public override decimal Price()
