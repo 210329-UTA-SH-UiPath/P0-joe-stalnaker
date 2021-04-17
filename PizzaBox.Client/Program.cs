@@ -125,7 +125,16 @@ namespace PizzaBox.Client
       DisplayPizzas(_pizzaSingleton.Pizzas);
       DisplayListPrompt();
       var pizza = SelectPizza();
-      _orderSingleton.Orders.Add(new Order(customer, store, pizza));
+      var orderTime = DateTime.Now;
+      bool allowed = true;
+      foreach (Order order in store.Orders)
+      {
+        if (order.Customer.Equals(customer)
+          && order.DateTime.Add(new TimeSpan(2, 0, 0)) > orderTime)
+          allowed = false;
+      }
+      if (allowed) _orderSingleton.Orders.Add(
+        new Order(customer, store, pizza, orderTime));
     }
     /// <summary></summary>
     private static void AddCustomer()
