@@ -47,9 +47,12 @@ namespace PizzaBox.Client
             DisplayOrdersByCustomer();
             break;
           case 5:
-            CreateOrder();
+            DisplayPizzasInOrder();
             break;
           case 6:
+            CreateOrder();
+            break;
+          case 7:
             running = false;
             break;
         }
@@ -107,23 +110,31 @@ namespace PizzaBox.Client
     /// <summary></summary>
     public static void DisplayCustomers()
     {
-      foreach (Customer customer in _customerSingleton.Customers)
+      foreach (Customer customer in _customerSingleton.Customers) ;
     }
     /// <summary></summary>
     private static void DisplayOrders(List<Order> orders)
     {
+      var index = 0;
       foreach (Order order in orders)
       {
-        Console.WriteLine(order);
+        Console.WriteLine($"{++index} - {order}");
       }
     }
-
     /// <summary></summary>
-    private static void DisplayPizzas()
+    private static void DisplayPizzasInOrder()
+    {
+      DisplayOrders(_orderSingleton.Orders);
+      DisplayListPrompt();
+      Order order = SelectOrder();
+      DisplayPizzas(order.Pizzas);
+    }
+    /// <summary></summary>
+    private static void DisplayPizzas(List<APizza> pizzas)
     {
       var index = 0;
 
-      foreach (var item in _pizzaSingleton.Pizzas)
+      foreach (var item in pizzas)
       {
         Console.WriteLine($"{++index} - {item}");
       }
@@ -148,17 +159,13 @@ namespace PizzaBox.Client
     /// <returns></returns>
     private static APizza SelectPizza()
     {
-      var input = int.Parse(Console.ReadLine());
-      var pizza = _pizzaSingleton.Pizzas[input - 1];
-      return pizza;
+      return _pizzaSingleton.Pizzas[SelectMenuOption() - 1];
     }
     /// <summary></summary>
     /// <returns>Customer</returns>
     private static Customer SelectCustomer()
     {
-      var input = int.Parse(Console.ReadLine());
-      var customer = _customerSingleton.Customers[input - 1];
-      return customer;
+      return _customerSingleton.Customers[SelectMenuOption() - 1];
     }
 
     /// <summary></summary>
@@ -167,6 +174,13 @@ namespace PizzaBox.Client
     {
       return _storeSingleton.Stores[SelectMenuOption() - 1];
     }
+
+    /// <summary></summary>
+    /// <returns></returns>
+    private static Order SelectOrder()
+    {
+      return _orderSingleton.Orders[SelectMenuOption() - 1];
+    }
     private static void CreateOrder()
     {
       DisplayCustomerPrompt();
@@ -174,7 +188,7 @@ namespace PizzaBox.Client
       DisplayStores();
       DisplayListPrompt();
       var store = SelectStore();
-      DisplayPizzas();
+      DisplayPizzas(_pizzaSingleton.Pizzas);
       DisplayListPrompt();
       var pizza = SelectPizza();
       _orderSingleton.Orders.Add(new Order(customer, store, pizza));

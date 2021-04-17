@@ -1,5 +1,6 @@
 using PizzaBox.Domain.Abstracts;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace PizzaBox.Domain.Models
 {
@@ -15,16 +16,22 @@ namespace PizzaBox.Domain.Models
   {
     public AStore Store { get; set; }
     public Customer Customer { get; set; }
-    public APizza Pizza { get; set; }
+    public List<APizza> Pizzas { get; set; }
     public Order(Customer customer, AStore store, APizza pizza)
     {
       Customer = customer;
       Store = store;
-      Pizza = pizza;
+      Pizzas = new List<APizza>();
+      AddPizza(pizza);
+    }
+    public bool AddPizza(APizza pizza)
+    {
+      Pizzas.Add(pizza);
+      return true;
     }
     public override string ToString()
     {
-      return $"{Store} {Customer} {Pizza}";
+      return $"{Store} {Customer} {Pizzas}";
     }
   }
 }

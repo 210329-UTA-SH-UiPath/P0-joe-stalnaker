@@ -6,8 +6,9 @@
   2. Show Total Sales by Store (weekly or monthly)
   3. List Previous Orders by Store
   4. List Previous Orders by Customer
-  5. Start New Order
-  6. Quit</string>
+  5. List Pizzas in Order
+  6. Start New Order
+  7. Quit</string>
   <string><!--1-->
   0. Return to Main Menu</string>
   <string><!--2-->
