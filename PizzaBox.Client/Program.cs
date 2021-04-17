@@ -6,24 +6,26 @@ using PizzaBox.Client.Singletons;
 
 namespace PizzaBox.Client
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   internal class Program
   {
+    /*****************************
+      Data Members / Singletons
+    *****************************/
     private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
     private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
     private static readonly OrderSingleton _orderSingleton = OrderSingleton.Instance;
     private static readonly StringSingleton _stringSingleton = StringSingleton.Instance;
     private static readonly CustomerSingleton _customerSingleton = CustomerSingleton.Instance;
-
+    /*****************************
+      Main & Run
+    *****************************/
     /// <summary></summary>
     /// <param name="args"></param>
     private static void Main(string[] args)
     {
       Run();
     }
-
     /// <summary></summary>
     private static void Run()
     {
@@ -61,7 +63,9 @@ namespace PizzaBox.Client
         }
       }
     }
-
+    /*****************************
+      Menu Display Methods
+    *****************************/
     /// <summary></summary>
     private static void DisplayMainMenu()
     {
@@ -87,14 +91,6 @@ namespace PizzaBox.Client
       DisplayLedger(store.GetLedger(SelectMenuOption()));
     }
     /// <summary></summary>
-    public static void DisplayLedger(Dictionary<DateTime, int> ledger)
-    {
-      foreach (KeyValuePair<DateTime, int> entry in ledger)
-      {
-        Console.WriteLine($"{0}: {1}", entry.Key, entry.Value);
-      }
-    }
-    /// <summary></summary>
     private static void DisplayOrdersByStore()
     {
       DisplayStores();
@@ -111,9 +107,36 @@ namespace PizzaBox.Client
       DisplayOrders(customer.Orders);
     }
     /// <summary></summary>
-    public static void DisplayCustomers()
+    private static void DisplayPizzasInOrder()
     {
-      foreach (Customer customer in _customerSingleton.Customers) ;
+      DisplayOrders(_orderSingleton.Orders);
+      DisplayListPrompt();
+      Order order = SelectOrder();
+      DisplayPizzas(order.Pizzas);
+    }
+    /// <summary></summary>
+    private static void CreateOrder()
+    {
+      DisplayCustomers();
+      var customer = SelectCustomer();
+      DisplayStores();
+      DisplayListPrompt();
+      var store = SelectStore();
+      DisplayPizzas(_pizzaSingleton.Pizzas);
+      DisplayListPrompt();
+      var pizza = SelectPizza();
+      _orderSingleton.Orders.Add(new Order(customer, store, pizza));
+    }
+    /// <summary></summary>
+    private static void AddCustomer()
+    {
+      DisplayCustomerPrompt();
+      _customerSingleton.Customers.Add(
+        new Customer(
+          _customerSingleton.Customers.Count,
+          Console.ReadLine()
+        )
+      );
     }
     /// <summary></summary>
     private static void DisplayOrders(List<Order> orders)
@@ -125,12 +148,17 @@ namespace PizzaBox.Client
       }
     }
     /// <summary></summary>
-    private static void DisplayPizzasInOrder()
+    public static void DisplayCustomers()
     {
-      DisplayOrders(_orderSingleton.Orders);
-      DisplayListPrompt();
-      Order order = SelectOrder();
-      DisplayPizzas(order.Pizzas);
+      foreach (Customer customer in _customerSingleton.Customers) ;
+    }
+    /// <summary></summary>
+    public static void DisplayLedger(Dictionary<DateTime, int> ledger)
+    {
+      foreach (KeyValuePair<DateTime, int> entry in ledger)
+      {
+        Console.WriteLine($"{0}: {1}", entry.Key, entry.Value);
+      }
     }
     /// <summary></summary>
     private static void DisplayPizzas(List<APizza> pizzas)
@@ -142,6 +170,30 @@ namespace PizzaBox.Client
         Console.WriteLine($"{++index} - {item}");
       }
     }
+    /// <summary></summary>
+    private static void DisplayCustomerPrompt()
+    {
+      Console.Write(_stringSingleton.Strings[2]);
+    }
+    /// <summary></summary>
+    private static void DisplayListPrompt()
+    {
+      Console.Write(_stringSingleton.Strings[3]);
+    }
+    /// <summary></summary>
+    private static void DisplaySalesMenu()
+    {
+      Console.Write(_stringSingleton.Strings[4]);
+      DisplayListPrompt();
+    }
+    /// <summary></summary>
+    private static void DisplayTimePrompt()
+    {
+      Console.WriteLine(_stringSingleton.Strings[5]);
+    }
+    /*****************************
+      Menu Select Methods
+    *****************************/
     /// <summary></summary>
     /// <returns>int</returns>
     private static int SelectMenuOption()
@@ -175,7 +227,6 @@ namespace PizzaBox.Client
       }
       return null;
     }
-
     /// <summary></summary>
     /// <returns>AStore</returns>
     private static AStore SelectStore()
@@ -189,44 +240,8 @@ namespace PizzaBox.Client
     {
       return _orderSingleton.Orders[SelectMenuOption() - 1];
     }
-    private static void CreateOrder()
-    {
-      DisplayCustomers();
-      var customer = SelectCustomer();
-      DisplayStores();
-      DisplayListPrompt();
-      var store = SelectStore();
-      DisplayPizzas(_pizzaSingleton.Pizzas);
-      DisplayListPrompt();
-      var pizza = SelectPizza();
-      _orderSingleton.Orders.Add(new Order(customer, store, pizza));
-    }
-    private static void AddCustomer()
-    {
-      DisplayCustomerPrompt();
-      _customerSingleton.Customers.Add(
-        new Customer(
-          _customerSingleton.Customers.Count,
-          Console.ReadLine()
-        )
-      );
-    }
-    private static void DisplayCustomerPrompt()
-    {
-      Console.Write(_stringSingleton.Strings[2]);
-    }
-    private static void DisplayListPrompt()
-    {
-      Console.Write(_stringSingleton.Strings[3]);
-    }
-    private static void DisplaySalesMenu()
-    {
-      Console.Write(_stringSingleton.Strings[4]);
-      DisplayListPrompt();
-    }
-    private static void DisplayTimePrompt()
-    {
-      Console.WriteLine(_stringSingleton.Strings[5]);
-    }
-  }
-}
+    /*****************************
+      End of Class
+    *****************************/
+  }//class
+}//namespace
