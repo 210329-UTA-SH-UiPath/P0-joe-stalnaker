@@ -1,5 +1,6 @@
 using PizzaBox.Domain.Models;
 using Xunit;
+using System;
 
 namespace PizzaBox.Testing.Tests
 {
@@ -16,15 +17,16 @@ namespace PizzaBox.Testing.Tests
     {
       // arrange
       var sut = new Order(
-        new Customer("John"),
+        new Customer(0, "John"),
         new ChicagoStore(),
-        new VeganPizza()
+        new VeganPizza(),
+        DateTime.Now
       );
 
       // act
       var customer = sut.Customer;
       var store = sut.Store;
-      var pizza = sut.Pizza;
+      var pizza = sut.Pizzas[0];
 
       // assert
       Assert.Equal("John", $"{customer}");

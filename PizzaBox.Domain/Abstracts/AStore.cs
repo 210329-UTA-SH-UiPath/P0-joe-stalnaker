@@ -15,20 +15,10 @@ namespace PizzaBox.Domain.Abstracts
     public string Name { get; set; }
     public List<Order> Orders { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     protected AStore()
     {
       Orders = new List<Order>();
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
-    {
-      return $"{Name}";
     }
     public Dictionary<DateTime, int> GetLedger(int timeFrame)
     {
@@ -38,6 +28,12 @@ namespace PizzaBox.Domain.Abstracts
       //ledger consits of the end date for the month or year and the total sales
       Dictionary<DateTime, int> ledger = new Dictionary<DateTime, int>();
       return ledger;
+    }
+    /// <summary></summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+      return $"{Name}";
     }
   }
 }

@@ -8,9 +8,7 @@ namespace PizzaBox.Testing.Tests
   /// </summary>
   public class StoreTests
   {
-    /// <summary>
-    /// 
-    /// </summary>
+    /*<summary></summary>*/
     [Fact]
     public void Test_StoreName()
     {

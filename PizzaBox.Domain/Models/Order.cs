@@ -19,6 +19,7 @@ namespace PizzaBox.Domain.Models
     public Customer Customer { get; set; }
     public List<APizza> Pizzas { get; set; }
     public DateTime DateTime { get; set; }
+    public Order() : base() { }
     public Order(Customer customer, AStore store, APizza pizza, DateTime dateTime)
     {
       Customer = customer;
@@ -34,7 +35,12 @@ namespace PizzaBox.Domain.Models
     }
     public override string ToString()
     {
-      return $"{Store} {Customer} {Pizzas} {DateTime}";
+      string order = "";
+      foreach (APizza pizza in Pizzas)
+      {
+        order += $"{DateTime} {Store.Name} {Customer.Name} {pizza.Name}";
+      }
+      return order;
     }
   }
 }

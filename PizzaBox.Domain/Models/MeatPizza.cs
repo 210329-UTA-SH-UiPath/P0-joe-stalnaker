@@ -26,5 +26,6 @@ namespace PizzaBox.Domain.Models
       }
       return price;
     }
+    public override string ToString() => $"{Name}: {Price()}";
   }
 }

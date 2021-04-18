@@ -3,14 +3,10 @@ using Xunit;
 
 namespace PizzaBox.Testing.Tests
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public class PizzaTests
   {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     [Fact]
     public void Test_PizzaCrust()
     {
@@ -21,7 +17,7 @@ namespace PizzaBox.Testing.Tests
       var actual = sut.Crust;
 
       // assert
-      Assert.Equal("Cauliflower", actual.Type);
+      Assert.Equal("Cauliflower", actual.Name);
     }
   }
 }

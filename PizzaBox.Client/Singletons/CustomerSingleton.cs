@@ -52,6 +52,14 @@ namespace PizzaBox.Client.Singletons
       }
       if (!found) Customers.Add(newCustomer);
     }
+    public Customer GetCustomer(int id)
+    {
+      foreach (Customer customer in Customers)
+      {
+        if (customer.ID == id) return customer;
+      }
+      return null;
+    }
     public void ShowCustomers()
     {
       foreach (Customer customer in Customers)

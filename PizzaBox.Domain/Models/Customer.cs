@@ -10,6 +10,7 @@ namespace PizzaBox.Domain.Models
     public int ID { get; set; }
     public string Name { get; set; }
     public List<Order> Orders { get; set; }
+    public Customer() { }
 
     public Customer(int id, string name)
     {

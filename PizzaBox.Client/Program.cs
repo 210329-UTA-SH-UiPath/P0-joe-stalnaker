@@ -33,6 +33,7 @@ namespace PizzaBox.Client
       while (running)
       {
         DisplayMainMenu();
+        DisplayListPrompt();
         var command = SelectMenuOption();
         switch (command)
         {
@@ -118,6 +119,7 @@ namespace PizzaBox.Client
     private static void CreateOrder()
     {
       DisplayCustomers();
+      DisplayListPrompt();
       var customer = SelectCustomer();
       DisplayStores();
       DisplayListPrompt();
@@ -133,8 +135,13 @@ namespace PizzaBox.Client
           && order.DateTime.Add(new TimeSpan(2, 0, 0)) > orderTime)
           allowed = false;
       }
-      if (allowed) _orderSingleton.Orders.Add(
-        new Order(customer, store, pizza, orderTime));
+      if (allowed)
+      {
+        var order = new Order(customer, store, pizza, orderTime);
+        _orderSingleton.Orders.Add(order);
+        customer.Orders.Add(order);
+        store.Orders.Add(order);
+      }
     }
     /// <summary></summary>
     private static void AddCustomer()
@@ -159,7 +166,10 @@ namespace PizzaBox.Client
     /// <summary></summary>
     public static void DisplayCustomers()
     {
-      foreach (Customer customer in _customerSingleton.Customers) ;
+      foreach (Customer customer in _customerSingleton.Customers)
+      {
+        Console.WriteLine($"{customer}");
+      }
     }
     /// <summary></summary>
     public static void DisplayLedger(Dictionary<DateTime, int> ledger)
