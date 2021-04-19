@@ -9,6 +9,7 @@ namespace PizzaBox.Storing.Entities
     public DbSet<Order> Orders { set; get; }
     public DbSet<Pizza> Pizzas { set; get; }
     public DbSet<Store> Stores { set; get; }
+    public DbSet<string> Strings { set; get; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       optionsBuilder.UseSqlServer(@"Server=tcp:jsrevature001.database.windows.net,1433;Initial Catalog=PizzaBoxDb;User ID=joestalnaker;Password=Rm26!0%%1lS3");

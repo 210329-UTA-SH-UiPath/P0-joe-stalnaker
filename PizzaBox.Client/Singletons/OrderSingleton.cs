@@ -8,15 +8,13 @@ using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client.Singletons
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public class OrderSingleton
   {
     private static OrderSingleton _instance;
-    private static readonly FileRepository _fileRepository = new FileRepository();
-    private const string _path = @"order.xml";
-    public List<Order> Orders { get; set; }
+    private readonly OrderRepository repository = null;
+    public List<Order> Orders
+    { get; set; }
     public static OrderSingleton Instance
     {
       get
@@ -35,12 +33,8 @@ namespace PizzaBox.Client.Singletons
     /// </summary>
     private OrderSingleton()
     {
-      Orders = new List<Order>();
-      //Orders = _fileRepository.ReadFromFile<Order>(_path);
-    }
-    public bool Save()
-    {
-      return _fileRepository.WriteToFile<Order>(_path, Orders);
+      repository = new OrderRepository(DbContextSingleton.Instance.Context);
+      Orders = repository.GetList();
     }
     public void AddOrder(Order order)
     {

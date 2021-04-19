@@ -11,18 +11,18 @@ namespace PizzaBox.Client.Singletons
   /// <summary>
   /// 
   /// </summary>
-  public class StoreSingleton
+  public class ComponentSingleton
   {
-    private static StoreSingleton _instance;
-    private readonly StoreRepository repository = null;
-    public List<AStore> Stores { get; set; }
-    public static StoreSingleton Instance
+    private static ComponentSingleton _instance;
+    private readonly ComponentRepository repository = null;
+    public List<AComponent> Components { get; set; }
+    public static ComponentSingleton Instance
     {
       get
       {
         if (_instance == null)
         {
-          _instance = new StoreSingleton();
+          _instance = new ComponentSingleton();
         }
 
         return _instance;
@@ -30,10 +30,10 @@ namespace PizzaBox.Client.Singletons
     }
 
     /// <summary></summary>
-    private StoreSingleton()
+    private ComponentSingleton()
     {
-      repository = new StoreRepository(DbContextSingleton.Instance.Context);
-      Stores = repository.GetList();
+      repository = new ComponentRepository(DbContextSingleton.Instance.Context);
+      Components = repository.GetList();
     }
 
   }

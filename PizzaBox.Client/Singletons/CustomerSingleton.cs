@@ -12,8 +12,7 @@ namespace PizzaBox.Client.Singletons
   public class CustomerSingleton
   {
     private static CustomerSingleton _instance;
-    private static readonly FileRepository _fileRepository = new FileRepository();
-    private const string _path = @"customers.xml";
+    private readonly CustomerRepository repository = null;
     public List<Customer> Customers { get; set; }
     public static CustomerSingleton Instance
     {
@@ -27,17 +26,11 @@ namespace PizzaBox.Client.Singletons
         return _instance;
       }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     private CustomerSingleton()
     {
-      Customers = new List<Customer>();
-    }
-    public bool Save()
-    {
-      return _fileRepository.WriteToFile<Customer>(_path, Customers);
+      repository = new CustomerRepository(DbContextSingleton.Instance.Context);
+      Customers = repository.GetList();
     }
     public void AddCustomer(Customer newCustomer)
     {
