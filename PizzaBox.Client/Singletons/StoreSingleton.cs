@@ -15,7 +15,7 @@ namespace PizzaBox.Client.Singletons
   {
     private static StoreSingleton _instance;
     private static readonly FileRepository _fileRepository = new FileRepository();
-    private const string _path = @"store.xml";
+    private const string _path = @"B:\Employment\Revature\Training\projects\P0-joe-stalnaker\store.xml";
     public List<AStore> Stores { get; set; }
     public static StoreSingleton Instance
     {
@@ -30,9 +30,7 @@ namespace PizzaBox.Client.Singletons
       }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     private StoreSingleton()
     {
       Stores = _fileRepository.ReadFromFile<AStore>(_path);

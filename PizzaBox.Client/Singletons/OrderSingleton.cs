@@ -15,7 +15,7 @@ namespace PizzaBox.Client.Singletons
   {
     private static OrderSingleton _instance;
     private static readonly FileRepository _fileRepository = new FileRepository();
-    private const string _path = @"order.xml";
+    private const string _path = @"B:\Employment\Revature\Training\projects\P0-joe-stalnaker\order.xml";
     public List<Order> Orders { get; set; }
     public static OrderSingleton Instance
     {

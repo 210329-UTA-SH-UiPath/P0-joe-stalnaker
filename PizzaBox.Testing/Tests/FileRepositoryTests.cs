@@ -7,9 +7,7 @@ namespace PizzaBox.Testing.Tests
 {
   public class FileRepositoryTests
   {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     [Fact]
     public void Test_ReadWriteToFile()
     {

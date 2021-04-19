@@ -6,21 +6,18 @@ using System;
 
 namespace PizzaBox.Testing.Tests
 {
-  /// <summary>
-  /// 
-  /// </summary>
-  public class OrderTests
+  /// <summary></summary>
+  public class CustomerTests
   {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     [Fact]
-    public void Test_CreateOrder()
+    public void Test_AddOderToCustomer()
     {
       // arrange
+      var sut = new Customer(0, "John");
       var pizzas = new List<APizza>();
       pizzas.Add(new VeganPizza());
-      var sut = new Order(
+      var order = new Order(
         new Customer(0, "John"),
         new ChicagoStore(),
         pizzas,
@@ -28,14 +25,10 @@ namespace PizzaBox.Testing.Tests
       );
 
       // act
-      var customer = sut.Customer;
-      var store = sut.Store;
-      pizzas = sut.Pizzas;
+      sut.Orders.Add(order);
 
       // assert
-      Assert.Equal(sut.Customer, customer);
-      Assert.Equal(sut.Store, store);
-      Assert.Equal(sut.Pizzas, pizzas);
+      Assert.Contains(order, sut.Orders);
     }
   }
 }
