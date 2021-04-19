@@ -1,8 +1,6 @@
 namespace PizzaBox.Domain.Abstracts
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public abstract class AComponent
   {
     public string Name { get; set; }

@@ -2,9 +2,7 @@ using System.Collections.Generic;
 
 namespace PizzaBox.Domain.Models
 {
-  /// <summary>
-  /// 
-  /// </summary>
+  /// <summary></summary>
   public class Customer
   {
     public int ID { get; set; }
