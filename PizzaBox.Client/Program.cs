@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 using PizzaBox.Domain.Models;
 using PizzaBox.Client.Singletons;
+using PizzaBox.Storing.Entities;
+using PizzaBox.Storing.Mappers;
+using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client
 {
@@ -12,11 +15,12 @@ namespace PizzaBox.Client
     /*****************************
       Data Members / Singletons
     *****************************/
+    private static readonly StringSingleton _stringSingleton = StringSingleton.Instance;
     private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
     private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
     private static readonly OrderSingleton _orderSingleton = OrderSingleton.Instance;
-    private static readonly StringSingleton _stringSingleton = StringSingleton.Instance;
     private static readonly CustomerSingleton _customerSingleton = CustomerSingleton.Instance;
+    private static readonly PizzaBoxDbContext _context = DbContextSingleton.Instance.Context;
     /*****************************
       Main & Run
     *****************************/
@@ -24,7 +28,14 @@ namespace PizzaBox.Client
     /// <param name="args"></param>
     private static void Main(string[] args)
     {
-      Run();
+      //Run();
+      CreateDatabase();
+    }
+    private static void CreateDatabase()
+    {
+      ComponentRepository cr = new ComponentRepository(_context);
+      cr.Add(new Crust());
+
     }
     /// <summary></summary>
     private static void Run()
