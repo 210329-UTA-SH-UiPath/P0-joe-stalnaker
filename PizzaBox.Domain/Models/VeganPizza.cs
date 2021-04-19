@@ -17,15 +17,5 @@ namespace PizzaBox.Domain.Models
       Toppings.Add(new Topping("Pineapple", 1.00M));
 
     }
-    public override decimal Price()
-    {
-      decimal price = Crust.Price;
-      price += Size.Price;
-      foreach (Topping topping in Toppings)
-      {
-        price += topping.Price;
-      }
-      return price;
-    }
   }
 }

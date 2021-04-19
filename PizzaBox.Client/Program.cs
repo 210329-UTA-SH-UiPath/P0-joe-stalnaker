@@ -124,9 +124,15 @@ namespace PizzaBox.Client
       DisplayStores();
       DisplayListPrompt();
       var store = SelectStore();
+      DisplayPizzaCountPrompt();
+      var count = SelectMenuOption();
+      var pizzas = new List<APizza>();
       DisplayPizzas(_pizzaSingleton.Pizzas);
       DisplayListPrompt();
-      var pizza = SelectPizza();
+      for (int i = 0; i < count; i++)
+      {
+        pizzas.Add(SelectPizza());
+      }
       var orderTime = DateTime.Now;
       bool allowed = true;
       foreach (Order order in store.Orders)
@@ -137,7 +143,7 @@ namespace PizzaBox.Client
       }
       if (allowed)
       {
-        var order = new Order(customer, store, pizza, orderTime);
+        var order = new Order(customer, store, pizzas, orderTime);
         _orderSingleton.Orders.Add(order);
         customer.Orders.Add(order);
         store.Orders.Add(order);
@@ -172,9 +178,9 @@ namespace PizzaBox.Client
       }
     }
     /// <summary></summary>
-    public static void DisplayLedger(Dictionary<DateTime, int> ledger)
+    public static void DisplayLedger(Dictionary<DateTime, decimal> ledger)
     {
-      foreach (KeyValuePair<DateTime, int> entry in ledger)
+      foreach (KeyValuePair<DateTime, decimal> entry in ledger)
       {
         Console.WriteLine($"{0}: {1}", entry.Key, entry.Value);
       }
@@ -198,6 +204,10 @@ namespace PizzaBox.Client
     private static void DisplayListPrompt()
     {
       Console.Write(_stringSingleton.Strings[3]);
+    }
+    private static void DisplayPizzaCountPrompt()
+    {
+      Console.Write(_stringSingleton.Strings[6]);
     }
     /// <summary></summary>
     private static void DisplaySalesMenu()

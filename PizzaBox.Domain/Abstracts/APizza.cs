@@ -12,7 +12,15 @@ namespace PizzaBox.Domain.Abstracts
     public List<Topping> Toppings { get; set; }
 
     public APizza() { }
-    public abstract decimal Price();
+    public decimal Price()
+    {
+      decimal price = Crust.Price + Size.Price;
+      foreach (Topping topping in Toppings)
+      {
+        price += topping.Price;
+      }
+      return price;
+    }
 
     public override string ToString() => $"{Name}: {Price()}";
   }

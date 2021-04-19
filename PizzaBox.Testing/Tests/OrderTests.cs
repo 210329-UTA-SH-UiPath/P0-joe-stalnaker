@@ -1,4 +1,6 @@
 using PizzaBox.Domain.Models;
+using PizzaBox.Domain.Abstracts;
+using System.Collections.Generic;
 using Xunit;
 using System;
 
@@ -16,10 +18,12 @@ namespace PizzaBox.Testing.Tests
     public void Test_CreateOrder()
     {
       // arrange
+      var pizzas = new List<APizza>();
+      pizzas.Add(new VeganPizza());
       var sut = new Order(
         new Customer(0, "John"),
         new ChicagoStore(),
-        new VeganPizza(),
+        pizzas,
         DateTime.Now
       );
 

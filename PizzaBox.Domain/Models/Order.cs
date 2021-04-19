@@ -20,13 +20,21 @@ namespace PizzaBox.Domain.Models
     public List<APizza> Pizzas { get; set; }
     public DateTime DateTime { get; set; }
     public Order() : base() { }
-    public Order(Customer customer, AStore store, APizza pizza, DateTime dateTime)
+    public Order(Customer customer, AStore store, List<APizza> pizzas, DateTime dateTime)
     {
       Customer = customer;
       Store = store;
-      Pizzas = new List<APizza>();
-      AddPizza(pizza);
+      Pizzas = pizzas;
       DateTime = dateTime;
+    }
+    public decimal Price()
+    {
+      decimal price = 0;
+      foreach (APizza pizza in Pizzas)
+      {
+        price += pizza.Price();
+      }
+      return price;
     }
     public bool AddPizza(APizza pizza)
     {
@@ -35,10 +43,10 @@ namespace PizzaBox.Domain.Models
     }
     public override string ToString()
     {
-      string order = "";
+      string order = $"{DateTime} {Store.Name} {Customer.Name} {Price()}";
       foreach (APizza pizza in Pizzas)
       {
-        order += $"{DateTime} {Store.Name} {Customer.Name} {pizza.Name}";
+        order += $" {pizza.Name}";
       }
       return order;
     }

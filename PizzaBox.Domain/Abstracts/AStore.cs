@@ -20,13 +20,13 @@ namespace PizzaBox.Domain.Abstracts
     {
       Orders = new List<Order>();
     }
-    public Dictionary<DateTime, int> GetLedger(int timeFrame)
+    public Dictionary<DateTime, decimal> GetLedger(int timeFrame)
     {
       //1. Weekly
       //2. Monthly
       //weeks end on Sunday and start on Monday
       //ledger consits of the end date for the month or year and the total sales
-      Dictionary<DateTime, int> ledger = new Dictionary<DateTime, int>();
+      Dictionary<DateTime, decimal> ledger = new Dictionary<DateTime, decimal>();
       return ledger;
     }
     /// <summary></summary>
