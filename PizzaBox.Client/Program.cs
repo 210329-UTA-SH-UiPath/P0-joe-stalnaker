@@ -15,7 +15,7 @@ namespace PizzaBox.Client
     /*****************************
       Data Members / Singletons
     *****************************/
-    private static readonly StringSingleton _stringSingleton = StringSingleton.Instance;
+    private static readonly MenuSingleton _menuSingleton = MenuSingleton.Instance;
     private static readonly StoreSingleton _storeSingleton = StoreSingleton.Instance;
     private static readonly PizzaSingleton _pizzaSingleton = PizzaSingleton.Instance;
     private static readonly OrderSingleton _orderSingleton = OrderSingleton.Instance;
@@ -33,9 +33,8 @@ namespace PizzaBox.Client
     }
     private static void CreateDatabase()
     {
-      ComponentRepository cr = new ComponentRepository(_context);
-      cr.Add(new Crust());
-
+      MenuRepository mr = new MenuRepository(_context);
+      mr.Add(new Domain.Models.Menu() { ID = 1, Text = "HelloWorld!" });
     }
     /// <summary></summary>
     private static void Run()
@@ -81,7 +80,7 @@ namespace PizzaBox.Client
     /// <summary></summary>
     private static void DisplayMainMenu()
     {
-      Console.WriteLine(_stringSingleton.Strings[0]);
+      Console.WriteLine(_menuSingleton.Menus[0]);
     }
     /// <summary></summary>
     private static void DisplayStores()
@@ -123,7 +122,7 @@ namespace PizzaBox.Client
     {
       DisplayOrders(_orderSingleton.Orders);
       DisplayListPrompt();
-      Order order = SelectOrder();
+      var order = SelectOrder();
       DisplayPizzas(order.Pizzas);
     }
     /// <summary></summary>
@@ -140,7 +139,7 @@ namespace PizzaBox.Client
       var pizza = SelectPizza();
       var orderTime = DateTime.Now;
       bool allowed = true;
-      foreach (Order order in store.Orders)
+      foreach (PizzaBox.Domain.Models.Order order in store.Orders)
       {
         if (order.Customer.Equals(customer)
           && order.DateTime.Add(new TimeSpan(2, 0, 0)) > orderTime)
@@ -148,7 +147,7 @@ namespace PizzaBox.Client
       }
       if (allowed)
       {
-        var order = new Order(customer, store, pizza, orderTime);
+        var order = new PizzaBox.Domain.Models.Order(customer, store, pizza, orderTime);
         _orderSingleton.Orders.Add(order);
         customer.Orders.Add(order);
         store.Orders.Add(order);
@@ -159,17 +158,17 @@ namespace PizzaBox.Client
     {
       DisplayCustomerPrompt();
       _customerSingleton.Customers.Add(
-        new Customer(
+        new PizzaBox.Domain.Models.Customer(
           _customerSingleton.Customers.Count,
           Console.ReadLine()
         )
       );
     }
     /// <summary></summary>
-    private static void DisplayOrders(List<Order> orders)
+    private static void DisplayOrders(List<PizzaBox.Domain.Models.Order> orders)
     {
       var index = 0;
-      foreach (Order order in orders)
+      foreach (PizzaBox.Domain.Models.Order order in orders)
       {
         Console.WriteLine($"{++index} - {order}");
       }
@@ -177,7 +176,7 @@ namespace PizzaBox.Client
     /// <summary></summary>
     public static void DisplayCustomers()
     {
-      foreach (Customer customer in _customerSingleton.Customers)
+      foreach (PizzaBox.Domain.Models.Customer customer in _customerSingleton.Customers)
       {
         Console.WriteLine($"{customer}");
       }
@@ -203,23 +202,23 @@ namespace PizzaBox.Client
     /// <summary></summary>
     private static void DisplayCustomerPrompt()
     {
-      Console.Write(_stringSingleton.Strings[2]);
+      Console.Write(_menuSingleton.Menus[2]);
     }
     /// <summary></summary>
     private static void DisplayListPrompt()
     {
-      Console.Write(_stringSingleton.Strings[3]);
+      Console.Write(_menuSingleton.Menus[3]);
     }
     /// <summary></summary>
     private static void DisplaySalesMenu()
     {
-      Console.Write(_stringSingleton.Strings[4]);
+      Console.Write(_menuSingleton.Menus[4]);
       DisplayListPrompt();
     }
     /// <summary></summary>
     private static void DisplayTimePrompt()
     {
-      Console.WriteLine(_stringSingleton.Strings[5]);
+      Console.WriteLine(_menuSingleton.Menus[5]);
     }
     /*****************************
       Menu Select Methods
@@ -248,10 +247,10 @@ namespace PizzaBox.Client
     }
     /// <summary></summary>
     /// <returns>Customer</returns>
-    private static Customer SelectCustomer()
+    private static PizzaBox.Domain.Models.Customer SelectCustomer()
     {
       int id = SelectMenuOption();
-      foreach (Customer customer in _customerSingleton.Customers)
+      foreach (PizzaBox.Domain.Models.Customer customer in _customerSingleton.Customers)
       {
         if (customer.ID == id) return customer;
       }
@@ -266,7 +265,7 @@ namespace PizzaBox.Client
 
     /// <summary></summary>
     /// <returns></returns>
-    private static Order SelectOrder()
+    private static PizzaBox.Domain.Models.Order SelectOrder()
     {
       return _orderSingleton.Orders[SelectMenuOption() - 1];
     }
