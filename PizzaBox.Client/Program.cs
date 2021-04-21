@@ -33,8 +33,9 @@ namespace PizzaBox.Client
     }
     private static void CreateDatabase()
     {
-      MenuRepository mr = new MenuRepository(_context);
-      mr.Add(new Domain.Models.Menu() { ID = 1, Text = "HelloWorld!" });
+      //MenuRepository mr = new MenuRepository(_context);
+      //mr.Add(new Domain.Models.Menu() { ID = 1, Text = "HelloWorld!" });
+      Console.WriteLine(@"HelloWorld!");
     }
     /// <summary></summary>
     private static void Run()
