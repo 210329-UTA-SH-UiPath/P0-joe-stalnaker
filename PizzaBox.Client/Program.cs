@@ -28,8 +28,8 @@ namespace PizzaBox.Client
     /// <param name="args"></param>
     private static void Main(string[] args)
     {
-      //Run();
-      CreateDatabase();
+      Run();
+      //CreateDatabase();
     }
     private static void CreateDatabase()
     {
@@ -81,7 +81,9 @@ namespace PizzaBox.Client
     /// <summary></summary>
     private static void DisplayMainMenu()
     {
-      Console.WriteLine(_menuSingleton.Menus[0]);
+      //string s = "Hello\nWorld!";
+      //Console.WriteLine(s);
+      Console.WriteLine($"{_menuSingleton.Menus[0]}");
     }
     /// <summary></summary>
     private static void DisplayStores()

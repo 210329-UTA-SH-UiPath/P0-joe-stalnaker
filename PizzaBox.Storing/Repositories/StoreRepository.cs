@@ -24,7 +24,8 @@ namespace PizzaBox.Storing.Repositories
 
     public List<AStore> GetList()
     {
-      return context.Stores.AsEnumerable().GroupBy(s => s.Name).Select(s => s.First()).Select(mapper.Map).ToList();
+      //return context.Stores.AsEnumerable().GroupBy(s => s.Name).Select(s => s.First()).Select(mapper.Map).ToList();
+      return context.Stores.Select(mapper.Map).ToList();
     }
 
     public void Remove(AStore t)

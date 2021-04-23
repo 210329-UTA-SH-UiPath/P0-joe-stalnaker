@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Entities;
 using PizzaBox.Storing.Mappers;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 
@@ -23,7 +24,11 @@ namespace PizzaBox.Storing.Repositories
 
     public List<Domain.Models.Menu> GetList()
     {
-      return context.Menus.Select(mapper.Map).ToList();
+
+      return context.Menus./*
+        Include(m => m.Name).
+        Include(m => m.Text).*/
+        Select(mapper.Map).ToList();
     }
 
     public void Remove(Domain.Models.Menu t)

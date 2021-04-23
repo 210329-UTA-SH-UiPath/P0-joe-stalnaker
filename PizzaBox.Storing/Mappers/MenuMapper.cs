@@ -1,21 +1,28 @@
 using System;
+using System.Collections.Generic;
 using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storing.Mappers
 {
   public class MenuMapper : IMapper<PizzaBox.Storing.Entities.Menu, PizzaBox.Domain.Models.Menu>
   {
-    public Domain.Models.Menu Map(Entities.Menu model)
+    public Domain.Models.Menu Map(Entities.Menu entity)
     {
-      return new Domain.Models.Menu(model.ID, model.Text);
+      var model = new Domain.Models.Menu();
+      model.ID = entity.ID;
+      model.Name = entity.Name;
+      model.Text = entity.Text;
+
+      return model;
     }
 
     public Entities.Menu Map(Domain.Models.Menu model)
     {
-      Entities.Menu menu = new Entities.Menu();
-      menu.Text = model.Text;
-      menu.ID = model.ID;
-      return menu;
+      var entity = new Entities.Menu();
+      entity.ID = model.ID;
+      entity.Name = model.Name;
+      entity.Text = model.Text;
+      return entity;
     }
   }
 }
